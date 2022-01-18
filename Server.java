@@ -14,6 +14,7 @@ class Server_client{
 }
 
 public class Server {
+    int hod = 0;
     public static void main(String[] ar)    {
         int port = 6666; // случайный порт (может быть любое число от 1025 до 65535)
         try {
@@ -37,6 +38,17 @@ public class Server {
                 System.out.println();
             }
 
+            // Начало логики ------------------------------------
+
+            String line = null;
+
+            clients[0].out.writeInt(1);
+            clients[1].out.writeInt(3);
+
+
+
+
+
 
             // Берем входной и выходной потоки сокета, теперь можем получать и отсылать данные клиенту
 
@@ -44,22 +56,41 @@ public class Server {
             // Конвертируем потоки в другой тип, чтоб легче обрабатывать текстовые сообщения.
 
 
-            String line = null;
 
 
-            while(true) {
-                for(int i = 0; i < clients.length; i++){
+
+            //while(true) {
+                /*for(int i = 0; i < clients.length; i++){
                     clients[i].out.writeUTF("all ok!" + i);
                     clients[i].out.flush();
+                }*/
+
+
+
+                /*if(clients[0].in.readUTF()){
+                    System.out.println("0");
+                    line = clients[0].in.readUTF(); // ожидаем пока клиент пришлет строку текста.
+                    System.out.println("The dumb client just sent me this line : " + line);
+                    System.out.println("I'm sending it back...");
+                    clients[0].out.writeUTF(line); // отсылаем клиенту обратно ту самую строку текста.
+                    clients[0].out.flush(); // заставляем поток закончить передачу данных.
+                    System.out.println("Waiting for the next line...");
+                    System.out.println();
+                    clients[0].in = new DataInputStream(clients[0].socket.getInputStream());
                 }
-                /*line = clients[0].in.readUTF(); // ожидаем пока клиент пришлет строку текста.
-                System.out.println("The dumb client just sent me this line : " + line);
-                System.out.println("I'm sending it back...");
-                clients[0].out.writeUTF(line); // отсылаем клиенту обратно ту самую строку текста.
-                clients[0].out.flush(); // заставляем поток закончить передачу данных.
-                System.out.println("Waiting for the next line...");
-                System.out.println();*/
-            }
+                if(clients[1].in.readUTF() != "null"){
+                    System.out.println("1");
+                    line = clients[1].in.readUTF(); // ожидаем пока клиент пришлет строку текста.
+                    System.out.println("The dumb client just sent me this line : " + line);
+                    System.out.println("I'm sending it back...");
+                    clients[1].out.writeUTF(line); // отсылаем клиенту обратно ту самую строку текста.
+                    clients[1].out.flush(); // заставляем поток закончить передачу данных.
+                    System.out.println("Waiting for the next line...");
+                    System.out.println();
+                    clients[1].in = new DataInputStream(clients[1].socket.getInputStream());
+                }*/
+
+            //}
         } catch(Exception x) { x.printStackTrace(); }
     }
 }
