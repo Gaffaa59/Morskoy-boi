@@ -33,9 +33,15 @@ public class Client {
 
             // Начало логики --------------------------------
 
-            String line = null; // ДЛЯ STRING
+            System.out.println(in.readUTF());
 
-            while (true) {
+            /*int line;
+
+            line = in.readInt(); // ждем пока сервер отошлет строку текста.
+            System.out.println("The server was very polite. It sent me this : " + line);
+            System.out.println();*/
+
+            /*while (true) {
                 line = keyboard.readLine(); // ждем пока пользователь введет что-то и нажмет кнопку Enter.
                 System.out.println("Sending this line to the server...");
                 out.writeUTF(line); // отсылаем введенную строку текста серверу.
@@ -44,7 +50,7 @@ public class Client {
                 System.out.println("The server was very polite. It sent me this : " + line);
                 //System.out.println("Looks like the server is pleased with us. Go ahead and enter more lines.");
                 System.out.println();
-            }
+            }*/
         } catch (Exception x) {
             x.printStackTrace();
         }
