@@ -13,9 +13,26 @@ class Server_client{
 
 }
 
+class Server_shashka{
+    boolean color;
+    boolean alive;
+    boolean dama;
+    int x, y;
+
+    Server_shashka(boolean color, boolean alive, boolean dama, int x, int y){
+        this.color = color; // black - true | white - false
+        this.alive = alive;
+        this.dama = dama;
+        this.x = x;
+        this.y = y;
+    }
+
+}
+
 public class Server {
-    int hod = 0;
-    public static void main(String[] ar)    {
+
+
+    public static void main(String[] ar) {
         int port = 6666; // случайный порт (может быть любое число от 1025 до 65535)
         try {
             ServerSocket ss = new ServerSocket(port); // создаем сокет сервера и привязываем его к вышеуказанному порту
@@ -38,12 +55,62 @@ public class Server {
                 System.out.println();
             }
 
-            // Начало логики ------------------------------------
+            // Начало логики ----------------------------------
 
-            String line = null;
+            int hod = 0;
+            Server_shashka[][] pole = new Server_shashka[8][8];
+            for(int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    pole[i][j] = null;
+                }
+            }
 
-            clients[0].out.writeInt(1);
-            clients[1].out.writeInt(3);
+            for(int i = 0; i < 8; i++){  // Заносим в поле шашки
+                int x, y, z;
+                if(i % 2 == 0){
+                    x = 1;
+                    y = 5;
+                    z = 7;
+                    pole[i][y] = new Server_shashka(false, true, false, i, y);
+                }else{
+                    x = 0;
+                    y = 2;
+                    z = 6;
+                    pole[i][y] = new Server_shashka(true, true, false, i, y);
+                }
+
+                pole[i][x] = new Server_shashka(true, true, false, i, x);
+                pole[i][z] = new Server_shashka(false, true, false, i, z);
+            }
+            /*for(int j = 7; j >= 0; j--){    //  Отрисовка для дебага
+                for(int i = 7; i >= 0; i--){
+                    //System.out.print(" |" + pole[i][j] + "| ");
+                    if(pole[i][j] == null){
+                        System.out.print("0 ");
+                    }else if(pole[i][j].color == true){
+                        System.out.print("1 ");
+                    }else{
+                        System.out.print("2 ");
+                    }
+                }
+                System.out.println("");
+            }*/
+
+            clients[0].out.writeUTF("Ready");
+            clients[1].out.writeUTF("Ready");
+
+
+
+
+
+
+
+            //String line = null;
+
+
+
+            //clients[0].out.writeInt(1);
+            //clients[1].out.writeInt(3);
 
 
 
